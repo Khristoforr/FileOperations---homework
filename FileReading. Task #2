@@ -7,7 +7,6 @@ def func_split_dish(line):
     return dict
 
 cook_book = {}
-formatted_list_of_strings = []
 with open('recipes.txt', 'r', encoding='utf-8') as file:
     dish = file.readline().strip()
     cook_book[dish] = []
@@ -17,9 +16,6 @@ with open('recipes.txt', 'r', encoding='utf-8') as file:
         elif line.strip() == '':
             dish = file.readline().strip()
             cook_book[dish] = []
-
-
-# print(*cook_book.items(), sep = '\n')
 
 def get_shop_list_by_dishes(dishes, person_count):
     cook_book_after_count = {}
