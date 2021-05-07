@@ -1,0 +1,34 @@
+def func_split_dish(line):
+    x = line.split('|')
+    dict = {}
+    dict['ingridient_name'] = x[0].strip()
+    dict['quantity'] = x[1].strip()
+    dict['measure'] = x[2].strip()
+    return dict
+
+cook_book = {}
+formatted_list_of_strings = []
+with open('recipes.txt', 'r', encoding='utf-8') as file:
+    dish = file.readline().strip()
+    cook_book[dish] = []
+    for line in file:
+        if '|' in line.strip():
+            cook_book[dish].append(func_split_dish(line.strip()))
+        elif line.strip() == '':
+            dish = file.readline().strip()
+            cook_book[dish] = []
+
+
+# print(*cook_book.items(), sep = '\n')
+
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book_after_count = {}
+    for dish in dishes:
+        for i in range(len(cook_book[dish])):
+            cook_book_after_count[cook_book[dish][i].get('ingridient_name')] = \
+                {"measure" : cook_book[dish][i].get('measure'),
+                 'quantity': int(cook_book[dish][i].get('quantity')) * person_count}
+    return cook_book_after_count
+
+print(*get_shop_list_by_dishes(["Запеченный картофель", "Омлет"],2).items(), sep = '\n')
+
